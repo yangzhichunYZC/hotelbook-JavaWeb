@@ -4,6 +4,8 @@ import com.inks.hb.common.MD5;
 import com.inks.hb.login.dao.LoginDao;
 import com.inks.hb.login.pojo.Login;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -40,7 +42,13 @@ public class LoginServiceImpl implements LoginService {
 
         //密码转MD5加密存储
         String pwd = login.getLoginPwd();
-        login.setLoginPwd(md5.getMD5(pwd));
+        try {
+            login.setLoginPwd(md5.getMD5(pwd));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         try {
             dao.insertData(login);
@@ -68,7 +76,13 @@ public class LoginServiceImpl implements LoginService {
     public int updateLogin(Login login) {
 
         String pwd = login.getLoginPwd();
-        login.setLoginPwd(md5.getMD5(pwd));
+        try {
+            login.setLoginPwd(md5.getMD5(pwd));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         try {
             dao.updateData(login);

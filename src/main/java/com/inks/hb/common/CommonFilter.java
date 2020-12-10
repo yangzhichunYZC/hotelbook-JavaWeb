@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * 过滤器，拦截所有请求。
@@ -57,7 +58,11 @@ public class CommonFilter implements Filter {
 
 
         // 请求响应结束之后调用统一关闭连接方法
-        DBUtil.close();
+        try {
+            DBUtil.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void init(FilterConfig config) {

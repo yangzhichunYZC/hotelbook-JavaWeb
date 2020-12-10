@@ -75,7 +75,7 @@
 			layui.use(['layer'], function() {
 				var layer = layui.layer;
 				$(document).ready(function() {
-					//alert("网页加载完毕");
+					alert("网页加载完毕");
 
 					//按钮点击事件
 					$('#btnLogin').click(function() {

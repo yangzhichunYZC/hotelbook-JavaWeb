@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 /**
@@ -41,7 +42,12 @@ public class QueryLoginNameServlet extends HttpServlet {
 
         // 获得姓名
         String loginName = request.getParameter("loginName");
-        String loginPwd = md5.getMD5(request.getParameter("loginPwd"));  //转成MD5存储
+        String loginPwd = null;  //转成MD5存储
+        try {
+            loginPwd = md5.getMD5(request.getParameter("loginPwd"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         try {
             int check = service.queryByName(loginName, loginPwd);
